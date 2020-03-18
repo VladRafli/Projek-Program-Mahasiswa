@@ -11,10 +11,11 @@
  * - Recursive                                                           *
  * - File Processing                                                     *
  * - Struct                                                              *
- * - Sorting (Bubble Sort)                                               *
- * - Searching (Linear Search)                                           *
+ * - Sorting                                                             *
+ * - Searching                                                           *
  * Update utk Semester 2                                                 *
  * - Linked List                                                         *
+ * - Trees (Not Implemented Yet...)                                      *
  *                                                                       *
  * Coding ini telah dibreakdown                                          *
  * Penjelasan proses setiap baris kode                                   *
@@ -26,10 +27,10 @@
  * Terima kasih                                                          *
  * Regards,                                                              *
  *                                                                       *
- * Ryfx                                                                  *
+ * Rafli Jaskandi                                                        *
  *                                                                       *
  * Program Mahasiswa Source Code                                         *
- * Copyright (C) 2019  Ryfx                                              *
+ * Copyright (C) 2019  Rafli Jaskandi                                    *
  *                                                                       *
  * This program is free software: you can redistribute it and/or modify  *
  * it under the terms of the GNU General Public License as published by  *
@@ -72,8 +73,8 @@ struct detail_mahasiswa
     char nama[30]; //Untuk menyimpan nama Mahasiswa
     char nim[12]; //Untuk menyimpan NIM Mahasiswa
 };
-//Variable untuk Detail Mahasiswa
-struct detail_mahasiswa mahasiswa[20]; //Mahasiswa[20] disini bertindak sebagai variabel dari struct detail_mahasiswa
+//Variable global untuk Detail Mahasiswa
+struct detail_mahasiswa mahasiswa[20]; //Mahasiswa[20] disini bertindak sebagai variabel global dari struct detail_mahasiswa
 /********************
  * Sama dengan
  * char nama[20][30];
