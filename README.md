@@ -8,7 +8,6 @@
 </ul>
 
 <p>Maupun yang ingin belajar Bahasa Pemrogramman C. Mulai dasar hingga penerapan yang kompleks</p>
-
 <p>Source code yang disediakan telah dibreakdown dengan penjelasan singkat agar mudah dipahami</p>
 
 <p>Jika masih kurang paham dengan source code yang diberikan, maka anda dapat lihat dokumentasi yang tersedia</p>
@@ -47,7 +46,7 @@
 
 <p>Sekian, terima kasih.</p>
 
-<h5>Regards, </h5>
+<h3>Regards, </h3>
 
-<h5>Ryfx</h5>
+<h3>Ryfx</h3>
 
