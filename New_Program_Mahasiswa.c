@@ -94,8 +94,6 @@ struct node_mahasiswa
 };
 //Pointer untuk menunjuk kepala atau data paling depan dari list
 struct node_mahasiswa *head = NULL;
-//Pointer untuk menunjuk list yang sedang ditunjuk
-struct node_mahasiswa *current = NULL;
 
 /*****************
  * Prototype Fungsi / Fungsi
@@ -119,13 +117,6 @@ void cetak_garis(int n) //Formal parameter int n(Merujuk pada angka yang akan di
         printf("="); //Mencetak =
     }
 }
-//Panjang Node
-void panjang_node()
-{
-    struct node_mahasiswa *current;
-    for(current = head; current != NULL; current = current->next)
-        node_index++;
-}
 //Membaca Data
 void baca_data()
 {
@@ -147,33 +138,6 @@ void baca_data()
         {
             data_index++; //Data Index ditambah 1 setiap pengulangan
         }
-        fclose(pf); //Menutup pointer file pf
-    }
-}
-//Membaca Data untuk Linked List (Under Construction)
-void baca_node()
-{
-    FILE *pf; //Pointer File Lokal
-    /***********************************
-     * Jika file data.txt tidak ada
-     * Maka akan dibuat sebuah data.txt
-     * Dengan isi yang kosong
-     ***********************************/
-    if((pf = fopen("data.txt", "r")) == NULL) //Jika data.txt tidak ada / NULL, maka
-    {
-        pf = fopen("data.txt", "w"); //Membuat file data.txt dengan isi yang kosong
-        fcloseall; //Menutup semua pointer file yang digunakan untuk file processing
-    }
-    else //Selain itu... (Jika data.txt ada)
-    {
-        pf = fopen("data.txt", "r"); //Membuka file dengan mode read
-        /*****
-         * Untuk pembacaan for dibawah:
-         * current = head, pembacaan dimulai dari list paling awal
-         * current != NULL, pembacaan sampai tidak bertemu current bernilai NULL
-         * current = current->next, sama seperti i++, karena next ada di struct node_mahasiswa { struct node_mahasiswa *next } sedangkan next ini menunjuk struct selanjutnya
-         ****/
-        
         fclose(pf); //Menutup pointer file pf
     }
 }
@@ -200,12 +164,6 @@ void searching();
 int Nama_search(char *cari); //Formal parameter char pointer cari(Merujuk pada variabel char char_cari)
 //Searching berdasarkan NIM
 int NIM_search(long long int *cari); //Formal Parameter long long int pointer cari(Merujuk pada variabel long long int NIM)
-//Melihat Data
-void lihat_node(char _mode);
-//Memasukkan Input untuk Node
-void tambah_node();
-//Input ke Node
-void input_node(char *nama, char *nim);
 
 /*****************
  * Program
@@ -238,11 +196,11 @@ void menu()
     }
     flag = 1; //Penanda jika data sudah dibaca
     //Tampilan
-    cetak_garis(70); //Mencetak sebuah garis
+    cetak_garis(30); //Mencetak sebuah garis
     puts(""); //Memberi enter setelah cetak garis diatas
-    printf("  Rangkuman Algorithm and Programming dan Data Structure C Language");
+    printf("  Project Program Mahasiswa");
     puts(""); //Memberi enter setelah cetak garis diatas
-    cetak_garis(70); //Mencetak sebuah garis
+    cetak_garis(30); //Mencetak sebuah garis
     printf("\n\n"); //Memberi enter sebanyak 2x setelah cetak garis diatas
     printf("Menu\n");
     printf("1. Lihat Data\n");
@@ -254,7 +212,7 @@ void menu()
     printf("7. Simpan Data\n");
     printf("8. Lihat Node\n");
     printf("9. Tambah Node\n");
-    printf("10. Edit Node");
+    printf("10. Edit Node\n");
     printf("11. Hapus Node\n");
     printf("12. Urutkan Node\n");
     printf("13. Mencari Node\n");
@@ -330,10 +288,6 @@ void menu()
                 //Jika ans == 7, maka
                 clrscr(); //Membersihkan Layar Console
                 simpan_data(); //Memanggil fungsi simpan_data
-            case 8:
-                //Jika ans == 8, maka
-                clrscr(); //Membersihkan Layar Console
-                lihat_node("full"); //Memanggil fungsi lihat_node
             case 15:
                 //Jika ans == 15, maka
                 exit(0); //Program selesai / berhenti dengan status 0 (Tidak ada error atau masalah)
@@ -1012,92 +966,6 @@ void simpan_data()
     clrscr(); //Membersihkan layar console
     menu(); //Memanggil fungsi menu
 }
-//Lihat Node
-void lihat_node(char _mode)
-{
-    struct node_mahasiswa *ptr = head; //Pointer ptr adalah head
-    cetak_garis(50); //Mencetak sebuah garis
-    puts(""); //Memberi enter setelah cetak garis
-    printf("\t\tList Mahasiswa\n");
-    cetak_garis(50); //Mencetak sebuah garis
-    puts(""); //Memberi enter setelah cetak garis
-    printf("%-2s| %-30s| %-10s\n", "No","            Nama", "    NIM"); //No|      Nama      |       NIM
-    cetak_garis(50); //Mencetak sebuah garis
-    puts(""); //Memberi enter setelah cetak garis
-    while(ptr != NULL)
-    {
-        printf("%-2d| %-30s|%-10s\n",ptr->key, ptr->node_nama, ptr->node_nim);
-    }
-    if(strcmp(_mode, "full") == 0)
-    {
-        getch();
-        clrscr();
-        menu();
-    }
-}
-//Masukan Input untuk Node
-void tambah_node()
-{
-    struct node_mahasiswa *ptr = head;
-    char nama[30], nim[12], ans;
-    do
-    {
-        printf("Masukkan nama: ");
-        scanf("%[^\n]", nama);
-        fflush(stdin);
-    } while (strlen(nama) < 0 || strlen(nama) > 30);
-    do
-    {
-        printf("Masukkan NIM: ");
-        scanf("%s", nim);
-    } while (strlen(nim) < 10 || strlen(nim) > 10);
-    printf("%-2d|%-30s|%-10s\n", ptr->key, nama, nim);
-    do
-    {
-        printf("Apakah data sudah benar, c untuk cancel? [y/n/c]\n");
-        ans = getch(); //Input ans tanpa terlihat dalam console
-        fflush(stdin); //Untuk jaga jaga jika nanti terdapat error saat input disuatu tempat
-        //Cek variabel ans
-        if(ans == 'y') //Jika ans == y, maka
-        {
-            input_node(nama, nim);
-            printf("Data telah terekam!");
-            sleep(1); //Jeda selama 1 detik
-            clrscr(); //Membersihkan layar console
-            menu(); //Memanggil Fungsi menu
-        }
-        else if(ans == 'n') //Jika ans == n, maka
-        {
-            clrscr(); //Membersihkan layar console
-            tambah_data(); //Memanggil fungsi tambah_data untuk input ulang
-        }
-        else if(ans == 'c') //Jika ans == c, maka
-        {
-            clrscr(); //Membersihkan layar console
-            menu(); //Memanggil fungsi menu
-        }
-        else //Jika selain kedua syarat diatas, maka
-        {
-            continue; //Lanjut pengulangan dari awal Do
-        }
-    } while (1); //Infinite Loop
-}
-//Input ke Node
-void input_node(char *nama, char *nim)
-{
-    struct node_mahasiswa *link = (struct node_mahasiswa*) malloc(sizeof(struct node_mahasiswa)); //Mengalokasikan memori untuk tambahan node
-    link->key = node_index;
-    strcpy(link->node_nama, nama);
-    strcpy(link->node_nim, nim);
-    link->next = head;
-    head = link;
-}
-//Hapus Node
-void hapus_node()
-{
-    int ans;
-    lihat_node("show");
-}
 /****************************************************
  * EOP (End OF Program)
  * 
@@ -1112,6 +980,6 @@ void hapus_node()
  * Update:
  * 1st Revision at 15/01/2020
  * 2nd Revision at 16/01/2020
- * 1st Update at 15/02/2020 (Not implementable)
- * 2nd Upadte coming soon!
+ * 1st Release at 18/03/2020 (v.0.1-Alpha)
+ * 1st Release 1st Revision (v.0.1.1-Alpha)
  ****************************************************/
