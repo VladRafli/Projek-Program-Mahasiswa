@@ -48,5 +48,5 @@
 
 <h3>Regards, </h3>
 
-<h3>Ryfx</h3>
-
+<h3>Rafli Jaskandi</h3>
+<h5>Bina Nusantara University, Computer Science 2023</h5>
